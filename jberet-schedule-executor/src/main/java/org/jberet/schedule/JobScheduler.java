@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017 Red Hat, Inc. and/or its affiliates.
+ * Copyright (c) 2016-2018 Red Hat, Inc. and/or its affiliates.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -115,7 +115,7 @@ public abstract class JobScheduler {
                 if (result == null) {
                     if (schedulerType != null) {
                         try {
-                            jobScheduler = result = schedulerType.newInstance();
+                            jobScheduler = result = schedulerType.getDeclaredConstructor().newInstance();
                             ScheduleExecutorLogger.LOGGER.createdJobScheduler(result, null);
                         } catch (final Throwable e) {
                             throw ScheduleExecutorMessages.MESSAGES.failToCreateJobScheduler(e, schedulerType);
