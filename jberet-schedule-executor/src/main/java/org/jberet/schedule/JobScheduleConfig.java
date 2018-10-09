@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Red Hat, Inc. and/or its affiliates.
+ * Copyright (c) 2016-2018 Red Hat, Inc. and/or its affiliates.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -31,17 +31,17 @@ public final class JobScheduleConfig implements Serializable {
 
     /**
      * The job XML name for the job schedule to start the job.
-     * Either {@code jobName} or {@code jobExecutionId} should be
+     * Either {@code jobName} or {@code jobExecutionId} may be
      * specified, but not both.
      */
-    final String jobName;
+    String jobName;
 
     /**
      * The id of a job execution for the job schedule to restart it.
-     * Either {@code jobName} or {@code jobExecutionId} should be
+     * Either {@code jobName} or {@code jobExecutionId} may be
      * specified, but not both.
      */
-    final long jobExecutionId;
+    long jobExecutionId;
 
     /**
      * The job parameters for starting the job or restarting the job execution.
@@ -204,6 +204,28 @@ public final class JobScheduleConfig implements Serializable {
      */
     public boolean isPersistent() {
         return persistent;
+    }
+
+    /**
+     * Sets the job XML name. This method can be called to set the job XML name
+     * for this job schedule configuration later in the processing cycle from other source.
+     *
+     * @param jobName the job XML name for this job schedule configuration
+     * @since 1.4.0
+     */
+    public void setJobName(final String jobName) {
+        this.jobName = jobName;
+    }
+
+    /**
+     * Sets the job execution id.  This method can be called to set the job execution id
+     * for this job schedule configuration later in the processing cycle from other source.
+     *
+     * @param jobExecutionId the job execution id for this job schedule configuration
+     * @since 1.4.0
+     */
+    public void setJobExecutionId(final long jobExecutionId) {
+        this.jobExecutionId = jobExecutionId;
     }
 
     @Override
