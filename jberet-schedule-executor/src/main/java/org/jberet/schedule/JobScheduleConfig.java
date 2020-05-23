@@ -10,7 +10,6 @@
 
 package org.jberet.schedule;
 
-import org.jberet.schedule._private.JobParametersAdapter;
 import org.jberet.schedule._private.ScheduleExpressionAdapter;
 
 import javax.ejb.ScheduleExpression;
@@ -50,7 +49,6 @@ public final class JobScheduleConfig implements Serializable {
     /**
      * The job parameters for starting the job or restarting the job execution.
      */
-    @XmlJavaTypeAdapter(JobParametersAdapter.class)
     final Properties jobParameters;
 
     /**

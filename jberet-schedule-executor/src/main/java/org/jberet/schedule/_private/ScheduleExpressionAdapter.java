@@ -5,61 +5,59 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Optional;
 
-public class ScheduleExpressionAdapter extends XmlAdapter<Map<String, String>, ScheduleExpression> {
+public class ScheduleExpressionAdapter extends XmlAdapter<JaxbScheduleExpression, ScheduleExpression> {
     private final static DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSSX");
 
     @Override
-    public ScheduleExpression unmarshal(Map<String, String> map) throws Exception {
-        if (map == null) {
+    public ScheduleExpression unmarshal(JaxbScheduleExpression scheduleExpression) throws Exception {
+        if (scheduleExpression == null) {
             return null;
         }
         ScheduleExpression expression = new ScheduleExpression();
 
-        Optional.ofNullable(map.get("dayOfMonth"))
+        Optional.ofNullable(scheduleExpression.getDayOfMonth())
                 .map(String::valueOf)
                 .ifPresent(expression::dayOfMonth);
 
-        Optional.ofNullable(map.get("dayOfWeek"))
+        Optional.ofNullable(scheduleExpression.getDayOfWeek())
                 .map(String::valueOf)
                 .ifPresent(expression::dayOfWeek);
 
-        Object endValue = map.get("end");
+        Object endValue = scheduleExpression.getEnd();
         if (endValue != null) {
             Date date = DATE_FORMAT.parse(endValue.toString());
             expression.end(date);
         }
 
-        Optional.ofNullable(map.get("hour"))
+        Optional.ofNullable(scheduleExpression.getHour())
                 .map(String::valueOf)
                 .ifPresent(expression::hour);
 
-        Optional.ofNullable(map.get("minute"))
+        Optional.ofNullable(scheduleExpression.getMinute())
                 .map(String::valueOf)
                 .ifPresent(expression::minute);
 
-        Optional.ofNullable(map.get("month"))
+        Optional.ofNullable(scheduleExpression.getMonth())
                 .map(String::valueOf)
                 .ifPresent(expression::month);
 
-        Optional.ofNullable(map.get("second"))
+        Optional.ofNullable(scheduleExpression.getSecond())
                 .map(String::valueOf)
                 .ifPresent(expression::second);
 
-        Object startValue = map.get("start");
+        Object startValue = scheduleExpression.getStart();
         if (startValue != null) {
             Date date = DATE_FORMAT.parse(startValue.toString());
             expression.start(date);
         }
 
-        Optional.ofNullable(map.get("timezone"))
+        Optional.ofNullable(scheduleExpression.getTimezone())
                 .map(String::valueOf)
                 .ifPresent(expression::timezone);
 
-        Optional.ofNullable(map.get("year"))
+        Optional.ofNullable(scheduleExpression.getYear())
                 .map(String::valueOf)
                 .ifPresent(expression::year);
         return expression;
@@ -67,8 +65,8 @@ public class ScheduleExpressionAdapter extends XmlAdapter<Map<String, String>, S
 
 
     @Override
-    public Map<String, String> marshal(ScheduleExpression scheduleExpression) throws Exception {
-        Map<String, String> map = new LinkedHashMap<>();
+    public JaxbScheduleExpression marshal(ScheduleExpression scheduleExpression) throws Exception {
+        JaxbScheduleExpression jaxbScheduleExpression = new JaxbScheduleExpression();
         String dayOfMonth = scheduleExpression.getDayOfMonth();
         String dayOfWeek = scheduleExpression.getDayOfWeek();
         Date end = scheduleExpression.getEnd();
@@ -82,37 +80,37 @@ public class ScheduleExpressionAdapter extends XmlAdapter<Map<String, String>, S
 
 
         if (dayOfMonth != null) {
-            map.put("dayOfMonth", dayOfMonth);
+            jaxbScheduleExpression.setDayOfMonth(dayOfMonth);
         }
         if (dayOfWeek != null) {
-            map.put("dayOfWeek", dayOfWeek);
+            jaxbScheduleExpression.setDayOfWeek(dayOfWeek);
         }
         if (end != null) {
             String endString = DATE_FORMAT.format(end);
-            map.put("end", endString);
+            jaxbScheduleExpression.setEnd(endString);
         }
         if (hour != null) {
-            map.put("hour", hour);
+            jaxbScheduleExpression.setHour(hour);
         }
         if (minute != null) {
-            map.put("minute", minute);
+            jaxbScheduleExpression.setMinute(minute);
         }
         if (month != null) {
-            map.put("month", month);
+            jaxbScheduleExpression.setMonth(month);
         }
         if (second != null) {
-            map.put("second", second);
+            jaxbScheduleExpression.setSecond(second);
         }
         if (start != null) {
             String startString = DATE_FORMAT.format(start);
-            map.put("start", startString);
+            jaxbScheduleExpression.setStart(startString);
         }
         if (timezone != null) {
-            map.put("timezone", timezone);
+            jaxbScheduleExpression.setTimezone(timezone);
         }
         if (year != null) {
-            map.put("year", year);
+            jaxbScheduleExpression.setYear(year);
         }
-        return map;
+        return jaxbScheduleExpression;
     }
 }
