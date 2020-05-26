@@ -10,12 +10,15 @@
 
 package org.jberet.schedule;
 
-import java.io.Serializable;
-import java.util.Properties;
+import org.jberet.schedule._private.ScheduleExpressionAdapter;
+
 import javax.ejb.ScheduleExpression;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
+import java.util.Properties;
 
 /**
  * Represents job schedule configuration, typically passed from the client side
@@ -53,6 +56,7 @@ public final class JobScheduleConfig implements Serializable {
      *
      * @see "javax.ejb.ScheduleExpression"
      */
+    @XmlJavaTypeAdapter(ScheduleExpressionAdapter.class)
     final ScheduleExpression scheduleExpression;
 
     /**
@@ -94,23 +98,23 @@ public final class JobScheduleConfig implements Serializable {
     /**
      * Constructs {@code JobScheduleConfig} with parameters.
      *
-     * @param jobName job XML name to start
-     * @param jobExecutionId job execution id to restart
-     * @param jobParameters job parameters for start and restart
+     * @param jobName            job XML name to start
+     * @param jobExecutionId     job execution id to restart
+     * @param jobParameters      job parameters for start and restart
      * @param scheduleExpression schedule expression for calendar-based schedule
-     * @param initialDelay initial delay
-     * @param afterDelay subsequent delay for repeatable job schedule
-     * @param interval interval or period for repeatable job schedule
-     * @param persistent whether the job schedule is persistent
+     * @param initialDelay       initial delay
+     * @param afterDelay         subsequent delay for repeatable job schedule
+     * @param interval           interval or period for repeatable job schedule
+     * @param persistent         whether the job schedule is persistent
      */
     JobScheduleConfig(final String jobName,
-                             final long jobExecutionId,
-                             final Properties jobParameters,
-                             final ScheduleExpression scheduleExpression,
-                             final long initialDelay,
-                             final long afterDelay,
-                             final long interval,
-                             final boolean persistent) {
+                      final long jobExecutionId,
+                      final Properties jobParameters,
+                      final ScheduleExpression scheduleExpression,
+                      final long initialDelay,
+                      final long afterDelay,
+                      final long interval,
+                      final boolean persistent) {
         this.jobName = jobName;
         this.jobExecutionId = jobExecutionId;
         this.jobParameters = jobParameters;
@@ -125,7 +129,7 @@ public final class JobScheduleConfig implements Serializable {
      * Determines if this job schedule is repeatable or not.
      *
      * @return true if {@code afterDelay} greater than 0, {@code interval} greater than 0,
-     *          or {@code scheduleExpression not null}
+     * or {@code scheduleExpression not null}
      */
     public boolean isRepeating() {
         return afterDelay > 0 || interval > 0 || scheduleExpression != null;
@@ -133,6 +137,7 @@ public final class JobScheduleConfig implements Serializable {
 
     /**
      * Gets the job XML name for this job schedule.
+     *
      * @return job XML name, null if this job schedule is for restarting a job execution
      */
     public String getJobName() {
@@ -141,6 +146,7 @@ public final class JobScheduleConfig implements Serializable {
 
     /**
      * Gets the job execution id for this job schedule.
+     *
      * @return job execution id, 0 if this job schedule is for starting a job
      */
     public long getJobExecutionId() {
@@ -149,6 +155,7 @@ public final class JobScheduleConfig implements Serializable {
 
     /**
      * Gets the job parameters for starting the job or restarting the job execution.
+     *
      * @return job parameters, may be empty or null
      */
     public Properties getJobParameters() {
@@ -157,6 +164,7 @@ public final class JobScheduleConfig implements Serializable {
 
     /**
      * Gets {@code javax.ejb.ScheduleExpression} for calendar-based job schedule.
+     *
      * @return schedule expression, may be null
      */
     public ScheduleExpression getScheduleExpression() {
