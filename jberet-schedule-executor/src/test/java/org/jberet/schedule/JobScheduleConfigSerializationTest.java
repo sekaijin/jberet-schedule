@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import javax.ejb.ScheduleExpression;
-import javax.xml.bind.JAXB;
+import jakarta.xml.bind.JAXB;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;

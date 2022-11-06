@@ -18,16 +18,18 @@
     <parent>
         <artifactId>jberet-parent</artifactId>
         <groupId>org.jberet</groupId>
-        <version>1.4.7.Final</version>
+        <version>2.1.1.Final</version>
     </parent>
 
     <artifactId>jberet-schedule</artifactId>
-    <version>1.4.2.Final-SNAPSHOT</version>
+    <version>2.1.1.Final-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
-        <version.org.jberet>1.4.7.Final</version.org.jberet>
+        <version.org.jberet>2.1.1.Final</version.org.jberet>
         <version.sun.jaxb>2.3.3-b02</version.sun.jaxb>
+        <version.jboss-annotations-api_1.3_spec>2.0.1.Final</version.jboss-annotations-api_1.3_spec>
+        <jboss-ejb-api_3.2_spec>2.0.0.Final</jboss-ejb-api_3.2_spec>
     </properties>
 
     <modules>
@@ -39,6 +41,7 @@
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.3_spec</artifactId>
+            <version>${version.jboss-annotations-api_1.3_spec}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
